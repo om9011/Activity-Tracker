@@ -17,7 +17,7 @@ Activity.createActivity = (userId, url, timeSpent) => {
 
 Activity.getUserActivities = (userId) => {
   return new Promise((resolve, reject) => {
-    const query = 'SELECT * FROM activities WHERE user_id = ?';
+    const query = 'SELECT url as website, SUM(time_spent) as TimeSpent, DATE(timestamp) as Date  FROM activities WHERE user_id = ? GROUP BY url, DATE(timestamp)';
     db.query(query, [userId], (err, results) => {
       if (err) {
         reject(err);

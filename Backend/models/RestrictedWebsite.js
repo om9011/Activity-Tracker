@@ -61,7 +61,7 @@ RestrictedWebsite.setTimerForWebsite = (userId, url, timeLimit) => {
 // Function to remove timer for a website
 RestrictedWebsite.removeTimerForWebsite = (timerId) => {
   return new Promise((resolve, reject) => {
-    const query = 'DELETE FROM website_timers WHERE id = ?';
+    const query = 'DELETE FROM time_limits WHERE id = ?';
     db.query(query, [timerId], (err, results) => {
       if (err) {
         reject(err);
