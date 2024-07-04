@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Activity Tracker</title>
+    <link rel="stylesheet" href="../assets//css/popup.css">
+</head>
+<body>
+   
+    <div id="login-section" class="section">
+        <div class="header">Activity Tracker</div>
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" id="login-email" placeholder="Email" required>
+            <input type="password" id="login-password" placeholder="Password" required>
+            <div id="login-message" class="message" style="display: none;"></div>
+            <button type="submit">Login</button>
+        </form>
+        <h6>Don't have Account?</h6>
+        <a href="../register/register.html" id ="redirect">Create new Account.</a>
+    </div>
+
+    <div id="analysis-section" class="section" style="display: none;">
+        <h2>Today's Activity</h2>
+        <div id="chart-container">
+            <!-- Visualization will be inserted here -->
+        </div>
+        <div id="website-times">
+            <!-- Time spent on each website will be listed here -->
+        </div>
+        <div id="analysis-message" class="message" style="display: none;"></div>
+        <button id="logout-button">Logout</button>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
