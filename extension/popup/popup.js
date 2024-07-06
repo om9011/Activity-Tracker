@@ -69,9 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+    async function ActivityByDate(date) {
+        const userToken = localStorage.getItem('userToken');
+        const response = await fetch(`http://localhost:5172/api/activities/${date}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `${userToken}`
+            }
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            renderActivityData(data);
+        } else {
+            showMessage(analysisMessage, data.message, 'error');
+        }
+    }
+
     function renderActivityData(data) {
         console.log('Activity Data:', data);
-
 
         const chartContainer = document.getElementById('chart-container');
         const websiteTimes = document.getElementById('website-times');

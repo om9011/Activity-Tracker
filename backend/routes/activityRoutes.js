@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getUserActivities, recordActivity, getTodaysTimeSpent } = require('../controllers/activityController.js');
+const { getUserActivities, recordActivity, getTodaysTimeSpent, getActivitiesByDate } = require('../controllers/activityController.js');
 const { verifyToken } = require('../middlewares/authMiddleware.js');
 
 // Route: POST /api/activities
@@ -14,5 +14,6 @@ router.get('/get', verifyToken, getUserActivities);
 
 // Route to get today's time spent on each website
 router.get('/today', verifyToken, getTodaysTimeSpent);
+router.get('/:date', verifyToken, getActivitiesByDate);
 
 module.exports = router;

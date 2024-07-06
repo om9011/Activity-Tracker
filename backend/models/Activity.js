@@ -4,7 +4,11 @@ const Activity = {};
 
 Activity.createActivity = (userId, url, timeSpent) => {
   return new Promise((resolve, reject) => {
-    const query = 'INSERT INTO activities (user_id, url, time_spent) VALUES (?, ?, ?)';
+    const query = `
+      INSERT INTO activities (user_id, url, time_spent) 
+      VALUES (?, ?, ?)
+      ON DUPLICATE KEY UPDATE time_spent = time_spent + VALUES(time_spent)
+    `;
     db.query(query, [userId, url, timeSpent], (err, results) => {
       if (err) {
         reject(err);
@@ -14,6 +18,7 @@ Activity.createActivity = (userId, url, timeSpent) => {
     });
   });
 };
+
 
 Activity.getUserActivities = (userId) => {
   return new Promise((resolve, reject) => {

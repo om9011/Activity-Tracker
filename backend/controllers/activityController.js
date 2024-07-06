@@ -4,7 +4,9 @@ const db = require('../config/db');
 
 // Function to record user activity
 const recordActivity = async (req, res) => {
-  const { userId, website, timeSpent } = req.body;
+  const { userId } = req.user;
+  const { website, timeSpent } = req.body;
+  console.log(userId, website, timeSpent);
 
   try {
     // Create a new activity record in the database
@@ -52,8 +54,30 @@ const getTodaysTimeSpent = async (req, res) => {
   });
 };
 
+const getActivitiesByDate = (req, res) => {
+  const { userId } = req.user; // Assuming user ID is set in the request object by the auth middleware
+  const { date } = req.params;
+
+  const query = `
+    SELECT url as website, SUM(time_spent) as totalTimeSpent
+    FROM activities
+    WHERE user_id = ? AND DATE(timestamp) = ?
+    GROUP BY url;
+  `;
+
+  db.query(query, [userId, date], (err, results) => {
+    if (err) {
+      console.error('Error fetching activities:', err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+
+    res.json(results);
+  });
+};
+
 module.exports = {
   recordActivity,
   getUserActivities,
   getTodaysTimeSpent,
+  getActivitiesByDate
 };
